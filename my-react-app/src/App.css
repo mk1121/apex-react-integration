@@ -1,0 +1,387 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #f0f2f5;
+  color: #1e293b;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -0.02em;
+}
+
+.app-header p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  background: #fff;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tab:hover {
+  color: #334155;
+  background: #f8fafc;
+}
+
+.tab.active {
+  color: #fff;
+  background: #6366f1;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.35);
+}
+
+/* Search */
+.search-wrapper {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+  background: #fff;
+  color: #1e293b;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+}
+
+/* Card wrapper */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+/* Tree */
+.tree {
+  list-style: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.tree-node {
+  margin-bottom: 4px;
+}
+
+.tree-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.tree-label:hover {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.tree-label.level-label {
+  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  border-color: #c7d2fe;
+  padding: 14px;
+}
+
+.tree-label.leaf {
+  background: #fff;
+  border: 1px solid #f1f5f9;
+}
+
+.tree-label.leaf:hover {
+  border-color: #c7d2fe;
+  background: #fafbff;
+}
+
+.arrow {
+  font-size: 0.6rem;
+  color: #6366f1;
+  transition: transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  background: rgba(99,102,241,0.08);
+  border-radius: 4px;
+}
+
+.arrow.open {
+  transform: rotate(90deg);
+}
+
+.node-icon {
+  font-size: 1rem;
+}
+
+.node-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: #1e293b;
+  flex: 1;
+}
+
+.badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #6366f1;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge.count {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Children */
+.tree-children {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0 4px 20px;
+  border-left: 2px solid #e0e7ff;
+  margin-left: 22px;
+  margin-top: 2px;
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Detail items */
+.tree-details {
+  list-style: none;
+  margin: 0;
+  padding: 2px 0 2px 20px;
+  border-left: 2px solid #6366f1;
+  margin-left: 22px;
+  margin-top: 2px;
+  animation: slideDown 0.15s ease-out;
+}
+
+.detail-item {
+  display: flex;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: 0.88rem;
+  color: #475569;
+  position: relative;
+}
+
+.detail-item::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  width: 10px;
+  height: 2px;
+  background: #6366f1;
+}
+
+.detail-key {
+  font-weight: 500;
+  color: #94a3b8;
+  min-width: 90px;
+}
+
+.detail-value {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Status / loading */
+.status {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.error {
+  color: #ef4444;
+}
+
+/* Search results */
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #f1f5f9;
+  border-radius: 10px;
+  transition: all 0.15s;
+}
+
+.search-result:hover {
+  border-color: #c7d2fe;
+  background: #fafbff;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.result-meta {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.result-count {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.load-more {
+  display: block;
+  width: calc(100% - 16px);
+  padding: 12px;
+  margin: 8px 8px;
+  background: #f8fafc;
+  color: #6366f1;
+  border: 2px dashed #c7d2fe;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.load-more:hover:not(:disabled) {
+  background: #6366f1;
+  color: #fff;
+  border-style: solid;
+}
+
+.load-more:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #94a3b8;
+}
+
+.empty-state .empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+}
+
+/* Spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e2e8f0;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .app { padding: 16px 12px 32px; }
+  .app-header h1 { font-size: 1.25rem; }
+  .tree-label { padding: 10px 12px; gap: 8px; }
+  .badge { font-size: 0.65rem; padding: 2px 6px; }
+  .node-name { font-size: 0.85rem; }
+}
