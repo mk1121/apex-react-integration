@@ -145,7 +145,7 @@ function DesigNode({ desig }) {
           ))}
           {hasMore && (
             <li>
-              <button className="load-more" onClick={loadMore} disabled={loading}>
+              <button type="button" className="load-more" onClick={(e) => { e.preventDefault(); e.stopPropagation(); loadMore() }} disabled={loading}>
                 {loading ? 'Loading...' : 'Load More'}
               </button>
             </li>
@@ -269,14 +269,16 @@ function App() {
 
       <div className="tabs">
         <button
+          type="button"
           className={`tab ${activeTab === 'hierarchy' ? 'active' : ''}`}
-          onClick={() => setActiveTab('hierarchy')}
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveTab('hierarchy') }}
         >
           📋 Hierarchy
         </button>
         <button
+          type="button"
           className={`tab ${activeTab === 'search' ? 'active' : ''}`}
-          onClick={() => setActiveTab('search')}
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setActiveTab('search') }}
         >
           🔍 Search
         </button>
@@ -314,6 +316,7 @@ function App() {
               placeholder="Search by name, ID, or designation..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation() } }}
             />
           </div>
 
@@ -346,8 +349,9 @@ function App() {
                 </ul>
                 {hasMore && (
                   <button
+                    type="button"
                     className="load-more"
-                    onClick={loadMore}
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); loadMore() }}
                     disabled={searching}
                   >
                     {searching ? (
