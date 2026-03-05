@@ -142,6 +142,54 @@ body {
   color: #1e293b;
 }
 
+/* ── View Toggle Tabs ─────────────────────────── */
+.view-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.view-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 40px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.view-tab:hover {
+  color: #4f46e5;
+  background: rgba(99,102,241,0.06);
+}
+
+.view-tab:active {
+  transform: scale(0.98);
+}
+
+.view-tab.active {
+  background: #fff;
+  color: #4f46e5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.view-tab-icon {
+  font-size: 1rem;
+}
+
 /* ── Content area ───────────────────────────────── */
 .app-content {
   flex: 1;
@@ -406,6 +454,9 @@ body {
   .stat-chip { padding: 4px 10px; min-width: 56px; }
   .stat-chip .stat-val { font-size: 0.85rem; }
   .stat-chip .stat-lbl { font-size: 0.55rem; }
+  .view-tabs { margin-bottom: 10px; }
+  .view-tab { padding: 8px 10px; font-size: 0.8rem; gap: 5px; }
+  .view-tab-icon { font-size: 0.9rem; }
   .card { border-radius: 10px; }
   .tree { padding: 6px; }
   .tree-children { padding-left: 14px; margin-left: 16px; }
@@ -418,6 +469,9 @@ body {
   .app-header h1 { font-size: 1rem; }
   .app-header p { font-size: 0.7rem; }
   .header-stats { display: none; }
+  .view-tabs { margin-bottom: 8px; border-radius: 8px; padding: 3px; }
+  .view-tab { padding: 7px 6px; font-size: 0.75rem; gap: 4px; border-radius: 6px; min-height: 36px; }
+  .view-tab-icon { font-size: 0.85rem; }
   .search-input { padding: 9px 36px 9px 36px; font-size: 0.82rem; border-radius: 8px; }
   .search-icon { left: 10px; font-size: 0.9rem; }
   .search-clear { right: 8px; width: 22px; height: 22px; font-size: 0.65rem; }

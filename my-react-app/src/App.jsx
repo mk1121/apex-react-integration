@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import './App.css'
+import OrgChart from './components/OrgChart'
 
 // Endpoint 1: lightweight — returns hchy_level, desig_code, desig_name, emp_count
 const DESIG_HIERARCHY_API = 'https://ntsapps.informatixsystems.com:8443/ords/hrdev_ws/designation-hierarchy'
@@ -258,6 +259,7 @@ function App() {
   const [tree, setTree] = useState({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [viewMode, setViewMode] = useState('tree') // 'tree' | 'chart'
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [searching, setSearching] = useState(false)
@@ -369,6 +371,26 @@ function App() {
           )}
         </div>
 
+        {/* View Toggle Tabs */}
+        {!loading && !error && (
+          <div className="view-tabs">
+            <button
+              className={`view-tab ${viewMode === 'tree' ? 'active' : ''}`}
+              onClick={() => setViewMode('tree')}
+            >
+              <span className="view-tab-icon">🌳</span>
+              Tree View
+            </button>
+            <button
+              className={`view-tab ${viewMode === 'chart' ? 'active' : ''}`}
+              onClick={() => setViewMode('chart')}
+            >
+              <span className="view-tab-icon">📊</span>
+              Hierarchy Chart
+            </button>
+          </div>
+        )}
+
         <div className="search-wrapper">
           <span className="search-icon">&#128269;</span>
           <input
@@ -455,7 +477,7 @@ function App() {
           </>
         )}
 
-        {!loading && !error && !isSearching && (
+        {!loading && !error && !isSearching && viewMode === 'tree' && (
           <div className="card">
             <ul className="tree">
               {sortedLevels.map((level) => (
@@ -467,6 +489,10 @@ function App() {
               ))}
             </ul>
           </div>
+        )}
+
+        {!loading && !error && !isSearching && viewMode === 'chart' && (
+          <OrgChart tree={tree} sortedLevels={sortedLevels} />
         )}
       </div>
     </div>
