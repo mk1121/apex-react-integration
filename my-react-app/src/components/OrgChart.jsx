@@ -2,10 +2,43 @@ import { useState, useCallback, useRef, useEffect } from 'react'
 import './OrgChart.css'
 
 const EMP_API = 'https://ntsapps.informatixsystems.com:8443/ords/hrdev_ws/emp-designations'
+const EMP_INFO_BASE = 'https://ntsapps.informatixsystems.com:8443/ords/r/hrdev_ws/hrms/employee-info222'
 
 const DEFAULT_AVATAR = `data:image/svg+xml,${encodeURIComponent(
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none"><rect width="80" height="80" rx="40" fill="#e0e7ff"/><circle cx="40" cy="30" r="14" fill="#6366f1"/><ellipse cx="40" cy="68" rx="24" ry="18" fill="#6366f1"/></svg>'
 )}`
+
+// Get Oracle APEX session from global or URL
+function getApexSession() {
+  // Try APEX JS API
+  if (typeof apex !== 'undefined' && apex?.env?.APP_SESSION) {
+    return apex.env.APP_SESSION
+  }
+  // Try window-level variable
+  if (typeof window !== 'undefined' && window.apex?.env?.APP_SESSION) {
+    return window.apex.env.APP_SESSION
+  }
+  // Fallback: parse from current URL (?session= or &session=)
+  try {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('session')) return params.get('session')
+    // APEX URL format: f?p=APP:PAGE:SESSION
+    const match = window.location.href.match(/f\?p=\d+:\d+:([\d]+)/)
+    if (match) return match[1]
+  } catch (e) { /* ignore */ }
+  return ''
+}
+
+// Build employee info redirect URL
+function getEmpInfoUrl(emp) {
+  const session = getApexSession()
+  const params = new URLSearchParams({
+    p6_emp_code: emp.emp_code,
+    p6_company_code: emp.company_code || '0001',
+  })
+  if (session) params.set('session', session)
+  return `${EMP_INFO_BASE}?${params.toString()}`
+}
 
 async function fetchPage(url) {
   const res = await fetch(url)
@@ -139,7 +172,13 @@ function EmployeePanel({ desig, onClose }) {
 
         <div className="emp-grid">
           {employees.map((emp) => (
-            <div key={emp.emp_code} className="emp-card">
+            <a
+              key={emp.emp_code}
+              className="emp-card emp-card-link"
+              href={getEmpInfoUrl(emp)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img className="emp-card-avatar" src={getEmpImage(emp)} alt="" />
               <div className="emp-card-info">
                 <div className="emp-card-name">{emp.emp_name}</div>
@@ -151,7 +190,8 @@ function EmployeePanel({ desig, onClose }) {
                   <div className="emp-card-detail">📍 {emp.assign_unit}</div>
                 )}
               </div>
-            </div>
+              <span className="emp-card-arrow">›</span>
+            </a>
           ))}
         </div>
 

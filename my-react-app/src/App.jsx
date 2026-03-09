@@ -6,6 +6,7 @@ import OrgChart from './components/OrgChart'
 const DESIG_HIERARCHY_API = 'https://ntsapps.informatixsystems.com:8443/ords/hrdev_ws/designation-hierarchy'
 // Endpoint 2: returns employees, supports ?desig_code= and ?search_term= filters
 const EMP_API = 'https://ntsapps.informatixsystems.com:8443/ords/hrdev_ws/emp-designations'
+const EMP_INFO_BASE = 'https://ntsapps.informatixsystems.com:8443/ords/r/hrdev_ws/hrms/employee-info'
 
 // Default avatar SVG as data URI
 const DEFAULT_AVATAR = `data:image/svg+xml,${encodeURIComponent(
@@ -61,6 +62,34 @@ function getEmpImage(emp) {
   return DEFAULT_AVATAR
 }
 
+// Get Oracle APEX session from global or URL
+function getApexSession() {
+  if (typeof apex !== 'undefined' && apex?.env?.APP_SESSION) {
+    return apex.env.APP_SESSION
+  }
+  if (typeof window !== 'undefined' && window.apex?.env?.APP_SESSION) {
+    return window.apex.env.APP_SESSION
+  }
+  try {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('session')) return params.get('session')
+    const match = window.location.href.match(/f\?p=\d+:\d+:([\d]+)/)
+    if (match) return match[1]
+  } catch (e) { /* ignore */ }
+  return ''
+}
+
+// Build employee info redirect URL
+function getEmpInfoUrl(emp) {
+  const session = getApexSession()
+  const params = new URLSearchParams({
+    p6_emp_code: emp.emp_code,
+    p6_company_code: emp.company_code || '0001',
+  })
+  if (session) params.set('session', session)
+  return `${EMP_INFO_BASE}?${params.toString()}`
+}
+
 // Employee leaf node
 function EmployeeNode({ emp }) {
   const [expanded, setExpanded] = useState(false)
@@ -70,6 +99,16 @@ function EmployeeNode({ emp }) {
         <span className={`arrow ${expanded ? 'open' : ''}`}>&#9654;</span>
         <img className="emp-avatar" src={getEmpImage(emp)} alt="" />
         <span className="node-name">{emp.emp_name}</span>
+        <a
+          className="emp-link-btn"
+          href={getEmpInfoUrl(emp)}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          title="View employee details"
+        >
+          &#8599;
+        </a>
       </div>
       {expanded && (
         <ul className="tree-details">
@@ -375,15 +414,17 @@ function App() {
         {!loading && !error && (
           <div className="view-tabs">
             <button
+              type="button"
               className={`view-tab ${viewMode === 'tree' ? 'active' : ''}`}
-              onClick={() => setViewMode('tree')}
+              onClick={(e) => { e.preventDefault(); setViewMode('tree') }}
             >
               <span className="view-tab-icon">🌳</span>
               Tree View
             </button>
             <button
+              type="button"
               className={`view-tab ${viewMode === 'chart' ? 'active' : ''}`}
-              onClick={() => setViewMode('chart')}
+              onClick={(e) => { e.preventDefault(); setViewMode('chart') }}
             >
               <span className="view-tab-icon">📊</span>
               Hierarchy Chart

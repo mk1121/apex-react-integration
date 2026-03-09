@@ -287,6 +287,28 @@ body {
   flex: 1;
 }
 
+/* Employee link button in tree view */
+.emp-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: rgba(99,102,241,0.08);
+  color: #6366f1;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.emp-link-btn:hover {
+  background: #6366f1;
+  color: #fff;
+  transform: scale(1.1);
+}
+
 .badge {
   font-size: 0.7rem;
   padding: 3px 10px;

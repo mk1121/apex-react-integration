@@ -277,6 +277,12 @@
   border-radius: 12px;
   transition: all 0.2s;
   -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+.emp-card-link {
+  cursor: pointer;
 }
 
 .emp-card:hover,
@@ -284,6 +290,24 @@
   border-color: #c7d2fe;
   background: #fafbff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.emp-card-link:hover {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.emp-card-arrow {
+  font-size: 1.4rem;
+  color: #94a3b8;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  font-weight: 300;
+}
+
+.emp-card-link:hover .emp-card-arrow {
+  color: #6366f1;
+  transform: translateX(2px);
 }
 
 .emp-card-avatar {
