@@ -104,52 +104,65 @@ Under **Files and Reports**, click **Static Application Files**.
 
 ![Static Application Files](docs/images/2.png)
 
-### Step 3.3 — Upload the JS File
+### Step 3.3 — Create a Static File
 
-Click **Upload File** and upload the JavaScript bundle from `dist/assets/`:
+Click **Create File** to add a new static file.
 
-![Upload JS file](docs/images/3.png)
+![Create static file](docs/images/3.png)
 
-### Step 3.4 — Upload the CSS File
+### Step 3.4 — Upload the JS File
 
-Upload the CSS file from `dist/assets/`:
+Upload the JavaScript bundle from `dist/assets/`:
 
-![Upload CSS file](docs/images/4.png)
+![Upload JS file](docs/images/4.png)
 
-### Step 3.5 — Verify Uploaded Files
+### Step 3.5 — Click Create
 
-Both files should be listed. Note the reference paths:
+After selecting the JS file, click **Create** to upload it.
 
-```
-#APP_FILES#index-XXXXXXXX.js
-#APP_FILES#index-XXXXXXXX.css
-```
+![Click Create](docs/images/5.png)
 
-![Verify uploaded files](docs/images/5.png)
+### Step 3.6 — Upload the CSS File
+
+Similarly, upload the CSS file from `dist/assets/`:
+
+![Upload CSS file](docs/images/6.png)
+
+### Step 3.7 — Copy JS File Reference
+
+Click the **Reference** icon next to the JS file to copy its path (e.g., `#APP_FILES#index-XXXXXXXX.js`).
+
+![Copy JS reference](docs/images/7.png)
+
+### Step 3.8 — Copy CSS File Reference
+
+Click the **Reference** icon next to the CSS file to copy its path (e.g., `#APP_FILES#index-XXXXXXXX.css`).
+
+![Copy CSS reference](docs/images/8.png)
 
 ---
 
-### Step 3.6 — Create a New APEX Page
+### Step 3.9 — Create a New APEX Page
 
 Go to **App Builder** → your app → **Create Page** → **Blank Page**.
 
-![Create new page](docs/images/6.png)
+![Create new page](docs/images/9.png)
 
-### Step 3.7 — Set Page Properties
+### Step 3.10 — Set Page Properties
 
 Name the page (e.g., "Organization Hierarchy").
 
-![Set page properties](docs/images/7.png)
+![Set page properties](docs/images/10.png)
 
 ---
 
-### Step 3.8 — Add a Static Content Region
+### Step 3.11 — Add a Static Content Region
 
 In Page Designer, right-click **Body** → **Create Region**.
 
-![Add region](docs/images/8.png)
+![Add region](docs/images/11.png)
 
-### Step 3.9 — Configure the Region
+### Step 3.12 — Configure the Region
 
 Set:
 
@@ -162,29 +175,31 @@ Set:
 
 This is where React mounts the app.
 
-![Configure region](docs/images/9.png)
+![Configure region](docs/images/12.png)
 
-### Step 3.10 — Set Region Template
+### Step 3.13 — Set Region Template
 
 Set the region **Template** to **Blank with Attributes** for a clean layout.
 
-![Region template](docs/images/10.png)
+![Region template](docs/images/13.png)
 
 ---
 
-### Step 3.11 — Add CSS File Reference
+### Step 3.14 — Add CSS & JS File References
 
-Select the page root in Page Designer → **CSS** section → **File URLs**:
+In Page Designer, select the page root, then:
+
+**CSS → File URLs:**
+
+Paste the CSS reference path you copied in Step 3.8:
 
 ```
 #APP_FILES#index-XXXXXXXX.css
 ```
 
-![Add CSS reference](docs/images/11.png)
+**JavaScript → File URLs:**
 
-### Step 3.12 — Add JS File Reference
-
-In the **JavaScript** section → **File URLs**:
+Paste the JS reference path you copied in Step 3.7:
 
 ```
 #APP_FILES#index-XXXXXXXX.js
@@ -192,7 +207,7 @@ In the **JavaScript** section → **File URLs**:
 
 > **Important:** The JS file must load as `type="module"`.
 
-![Add JS reference](docs/images/12.png)
+![Add CSS and JS reference](docs/images/15.png)
 
 ### Alternative: Load JS via Inline Code
 
@@ -206,27 +221,11 @@ script.src = apex.env.APP_FILE_PREFIX + 'index-XXXXXXXX.js';
 document.head.appendChild(script);
 ```
 
-![Alternative JS loading](docs/images/13.png)
-
 ---
 
-### Step 3.13 — Configure Page Template
+### Step 3.15 — Save and Run
 
-Optionally set a minimal page template for full-width layout.
-
-![Page template](docs/images/14.png)
-
-### Step 3.14 — Save the Page
-
-Click **Save** (`Ctrl+S`).
-
-![Save page](docs/images/15.png)
-
-### Step 3.15 — Run and Test
-
-Click **Run Page** to see the React app inside APEX.
-
-![Run and test](docs/images/16.png)
+Save the page (`Ctrl+S`) and click **Run Page** to see the React app inside APEX.
 
 ---
 
